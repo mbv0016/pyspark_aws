@@ -1,0 +1,7 @@
+{
+    "source_path" : "s3://spark-glue-01/data-zone/country.csv", 
+    "source_type" : "csv",
+    "schema" : "Name STRING, Code STRING",
+    "header" : "Name, Code",
+    "table_name" : "country"
+}    
