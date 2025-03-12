@@ -1,0 +1,27 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: "AWS CloudFormation template to deploy an AWS Glue job"
+
+Resources:
+  GlueJob:
+    Type: 'AWS::Glue::Job'
+    Properties:
+      Name: 'MyGlueJob'
+      Role: 'arn:aws:iam::529088291603:role/glue-tutorial-role'
+      Command:
+        Name: 'glueetl'
+        ScriptLocation: 's3://aws-glue-assets-529088291603-us-east-1/scripts/main.py'
+      DefaultArguments:
+        '--TempDir': 's3://aws-glue-assets-529088291603-us-east-1/temporary/'
+        '--job-language': 'python'
+        '--CONFIG_FILE': 's3://spark-glue-01/config-zone/config1.json'
+        '--OUTPUT_PATH': 's3://spark-glue-01/deploy-zone/ecommerce-table/'
+        '--TABLE_NAME': 'ecom'
+      MaxRetries: 0
+      GlueVersion: '2.0'
+      NumberOfWorkers: 2
+      WorkerType: 'G.1X'
+
+Outputs:
+  GlueJobName:
+    Description: "The name of the AWS Glue job"
+    Value: !Ref GlueJob
